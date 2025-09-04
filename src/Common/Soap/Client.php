@@ -129,8 +129,8 @@ class Client implements ClientInterface
         );
         if ($this->httpResponse->hasHeader("Set-Cookie")) {
             $this->cookie = implode(
-                ", ",
-                $this->httpResponse->getHeader("Set-Cookie")
+                ';',
+                array_map(fn($str) => trim(explode(';', $str)[0]), $this->httpResponse->getHeader("Set-Cookie"))
             );
         }
         return $this->httpResponse;
